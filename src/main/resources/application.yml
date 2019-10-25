@@ -1,0 +1,46 @@
+server:
+  port: 8088
+#  ssl:
+#    key-store: classpath:ysfkeystore.jks
+#    key-store-password: ysframework
+#    key-password: ysframework
+#    key-store-type: PKCS12
+#    key-alias: ysfsslkey
+#  http2:
+#    enabled: true
+
+spring:
+    datasource:
+        url: jdbc:mysql://127.0.0.1:3306/ysframework?serverTimezone=UTC&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+        username: root
+        password: 123456
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      hibernate:
+        naming:
+            #驼峰命名法不修改为_
+            physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        ddl-auto: update
+      show-sql: true
+      #不加这句则默认为myisam引擎 索引长度会限制在1000以内
+      #建表指定UTF-8 否则表不能存中文
+      database-platform: cn.pxy.ysframework.config.MySQL5DialectUTF8
+    http:
+      encoding:
+        charset: UTF-8
+        enabled: true
+        force: true
+    thymeleaf:
+      #模板的模式，支持 HTML, XML TEXT JAVASCRIPT
+      mode: HTML5
+      #编码 可不用配置
+      encoding: UTF-8
+      #内容类别,可不用配置
+      content-type: text/html
+      #开发配置为false,避免修改模板还要重启服务器
+      cache: false
+      #配置模板路径，默认是templates，可以不用配置
+      prefix: classpath:/templates/
+
+    mvc:
+      static-path-pattern: /**
